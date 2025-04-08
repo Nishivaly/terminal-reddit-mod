@@ -1,4 +1,4 @@
-package main
+package auth
 
 import (
 	"context"
@@ -122,7 +122,7 @@ func loginAndGetToken() (*oauth2.Token, error) {
 }
 
 // Returns a Reddit client using the token flow
-func getRedditClient() (*reddit.Client, error) {
+func GetRedditClient() (*reddit.Client, error) {
 	var token *oauth2.Token
 	var err error
 
