@@ -1,4 +1,4 @@
-module github.com/Nishivaly/redditcli
+module github.com/Nishivaly/terminal-reddit-mod
 
 go 1.24.1
 
