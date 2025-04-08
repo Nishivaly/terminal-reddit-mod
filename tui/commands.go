@@ -30,3 +30,13 @@ func getPosts(client *reddit.Client) tea.Cmd {
 		return redditPostsMsg{posts}
 	}
 }
+
+func getUserData(client *reddit.Client) tea.Cmd {
+	return func() tea.Msg {
+		moderated, _, err := client.Subreddit.Moderated(context.Background(), &reddit.ListSubredditOptions{})
+		if err != nil {
+			return errMsg{err}
+		}
+		return redditUserDataMsg{moderated}
+	}
+}

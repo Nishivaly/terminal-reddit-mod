@@ -8,6 +8,10 @@ type redditClientMsg struct {
 	client *reddit.Client
 }
 
+type redditUserDataMsg struct {
+  moderated []*reddit.Subreddit
+}
+
 type redditPostsMsg struct {
 	posts []*reddit.Post
 }

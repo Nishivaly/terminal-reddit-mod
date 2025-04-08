@@ -13,6 +13,13 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case redditPostsMsg:
 		m.posts = msg.posts
+		return m, getUserData(m.client)
+
+	case redditUserDataMsg:
+		if m.user == nil {
+			m.user = &userData{}
+		}
+		m.user.moderated = msg.moderated
 		return m, nil
 
 	case errMsg:

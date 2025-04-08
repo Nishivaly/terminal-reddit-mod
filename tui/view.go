@@ -21,5 +21,11 @@ func (m Model) View() string {
 			s += fmt.Sprintf("%d. %s\n", i+1, post.Title)
 		}
 	}
+
+	if m.user != nil {
+		for _, subreddit := range m.user.moderated {
+			s += fmt.Sprintf("%s\n", subreddit.Name)
+		}
+	}
 	return "\n" + s + "\n\n"
 }
