@@ -21,6 +21,7 @@ var (
 	clientID     string
 	clientSecret string
 	redirectURL  string
+	userAgent    string
 	oauthConfig  *oauth2.Config
 )
 
@@ -32,6 +33,7 @@ func init() {
 	clientID = os.Getenv("REDDIT_CLIENT_ID")
 	clientSecret = os.Getenv("REDDIT_CLIENT_SECRET")
 	redirectURL = os.Getenv("REDDIT_REDIRECT_URL")
+	userAgent = os.Getenv("REDDIT_USER_AGENT")
 
 	oauthConfig = &oauth2.Config{
 		ClientID:     clientID,
@@ -138,5 +140,10 @@ func GetRedditClient() (*reddit.Client, error) {
 	// Build token source that will auto-refresh
 	ts := oauthConfig.TokenSource(context.Background(), token)
 
-	return reddit.NewClient(reddit.Credentials{}, reddit.WithTokenSource(ts))
+	opts := []reddit.Opt{
+		reddit.WithTokenSource(ts),
+		reddit.WithUserAgent(userAgent),
+	}
+
+	return reddit.NewClient(reddit.Credentials{}, opts...)
 }
