@@ -9,17 +9,15 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case redditClientMsg:
 		m.client = msg.client
-		return m, getPosts(m.client)
+		return m, getModerated(m.client)
 
-	case redditPostsMsg:
-		m.posts = msg.posts
-		return m, getUserData(m.client)
-
-	case redditUserDataMsg:
-		if m.user == nil {
-			m.user = &userData{}
-		}
+	case redditModeratedMsg:
 		m.user.moderated = msg.moderated
+		return m, getModQueue(m.client, m.user.stringifyModerated())
+
+	case redditModQueueMsg:
+		m.user.modQueue.posts = msg.posts
+		m.user.modQueue.comments = msg.comments
 		return m, nil
 
 	case errMsg:
