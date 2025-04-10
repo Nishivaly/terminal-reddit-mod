@@ -34,5 +34,9 @@ func (m Model) View() string {
 		}
 	}
 
+  if len(m.list.Items()) > 0 {
+    return m.list.View()
+  }
+
 	return s + "\n\n"
 }
